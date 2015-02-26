@@ -1,0 +1,21 @@
+{
+  "uuid": "4997bd2e-d87c-4377-ba52-a7b8a795b18d", 
+  "shortName": "Isotime", 
+  "longName": "Isotime", 
+  "companyName": "Chris Lewis", 
+  "versionCode": 1, 
+  "versionLabel": "1.0", 
+  "watchapp": {
+    "watchface": true
+  }, 
+  "sdkVersion": "3",
+  "targetPlatforms": [
+    "basalt"
+  ], 
+  "appKeys": {
+    "dummy": 0
+  }, 
+  "resources": {
+    "media": []
+  }
+}
