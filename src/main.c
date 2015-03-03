@@ -88,6 +88,7 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
     case COLOR_SET_BLUE:
       s_fg_color = FG_COL_BLUE;
       s_bg_color = BG_COL_BLUE;
+      break;
     case COLOR_SET_GREEN:
       s_fg_color = FG_COL_GREEN;
       s_bg_color = BG_COL_GREEN;
