@@ -101,7 +101,7 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
 
   // Smooth transition
   pge_set_framerate(FRAME_RATE_HIGH);
-  app_timer_register(3000, battery_saver, NULL);
+  app_timer_register(4000, battery_saver, NULL);
 }
 
 void pge_init() {
