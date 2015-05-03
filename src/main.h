@@ -29,6 +29,6 @@ extern GColor g_bg_color;
 #define FG_COL_RED GColorDarkCandyAppleRed
 #define BG_COL_RED GColorOrange
 #define FG_COL_BLUE GColorBlue
-#define BG_COL_BLUE GColorVeryLightBlue
+#define BG_COL_BLUE GColorWhite
 #define FG_COL_GREEN GColorDarkGreen
 #define BG_COL_GREEN GColorGreen
