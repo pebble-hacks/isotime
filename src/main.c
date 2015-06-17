@@ -24,9 +24,9 @@ static void pge_render(GContext *ctx) {
 
   
 #ifndef DRAW_BG
-  isometric_begin(ctx);
+  pge_isometric_begin(ctx);
 #else
-  GBitmap *bg_fb = isometric_begin(ctx);
+  GBitmap *bg_fb = pge_isometric_begin(ctx);
   uint8_t *bg_fb_data = gbitmap_get_data(bg_fb);
   GSize bg_fb_size = gbitmap_get_bounds(bg_fb).size;
   for(int y = 0; y < 168; y++) {
@@ -40,7 +40,7 @@ static void pge_render(GContext *ctx) {
     digit_render(s_digits[i]);
   }
 
-  isometric_finish(ctx);
+  pge_isometric_finish(ctx);
 
 #ifdef BENCHMARK
   uint16_t finish = time_ms(NULL, NULL);
@@ -110,7 +110,7 @@ void pge_init() {
   s_digits[2] = digit_create(GPoint(MINS_OFFSET, 7 * SEGMENT_SIZE.h), 0);
   s_digits[3] = digit_create(GPoint(MINS_OFFSET + (5 * SEGMENT_SIZE.w), 7 * SEGMENT_SIZE.h), 0);
 
-  isometric_set_projection_offset(GPoint(100, 45));
+  pge_isometric_set_projection_offset(GPoint(100, 45));
   pge_set_framerate(FRAME_RATE_HIGH);
   pge_begin(GColorBlack, pge_logic, pge_render, NULL);
 

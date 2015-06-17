@@ -2,7 +2,7 @@
 
 #include <pebble.h>
 #include "pge/pge.h"
-#include "isometric/isometric.h"
+#include "pge/modules/pge_isometric.h"
 
 // #define DRAW_BG
 // #define BENCHMARK
