@@ -22,9 +22,6 @@ static void pge_render(GContext *ctx) {
   uint16_t start = time_ms(NULL, NULL);
 #endif
 
-  APP_LOG(APP_LOG_LEVEL_INFO, "FRAME");
-
-  
 #ifndef DRAW_BG
   pge_isometric_begin(ctx);
 #else
@@ -95,6 +92,10 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
     case COLOR_SET_GREEN:
       s_fg_color = FG_COL_GREEN;
       s_bg_color = BG_COL_GREEN;
+      break;
+    case COLOR_SET_GRAY:
+      s_fg_color = FG_COL_GRAY;
+      s_bg_color = BG_COL_GRAY;
       break;
   }
 
