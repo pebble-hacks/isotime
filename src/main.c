@@ -22,6 +22,8 @@ static void pge_render(GContext *ctx) {
   uint16_t start = time_ms(NULL, NULL);
 #endif
 
+  APP_LOG(APP_LOG_LEVEL_INFO, "FRAME");
+
   
 #ifndef DRAW_BG
   pge_isometric_begin(ctx);
@@ -49,7 +51,8 @@ static void pge_render(GContext *ctx) {
 }
 
 static void battery_saver(void *context) {
-  pge_set_framerate(1);
+  // Don't render for the rest of the minute
+  pge_pause();
 }
 
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
@@ -100,6 +103,7 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
   }
 
   // Smooth transition
+  pge_resume();
   pge_set_framerate(FRAME_RATE_HIGH);
   app_timer_register(4000, battery_saver, NULL);
 }
