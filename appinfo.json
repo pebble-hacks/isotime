@@ -10,7 +10,8 @@
   }, 
   "sdkVersion": "3",
   "targetPlatforms": [
-    "basalt"
+    "basalt",
+    "chalk"
   ], 
   "appKeys": {
     "dummy": 0
