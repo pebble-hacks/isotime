@@ -115,7 +115,7 @@ void pge_init() {
   s_digits[2] = digit_create(GPoint(MINS_OFFSET, 7 * SEGMENT_SIZE.h), 0);
   s_digits[3] = digit_create(GPoint(MINS_OFFSET + (5 * SEGMENT_SIZE.w), 7 * SEGMENT_SIZE.h), 0);
 
-  pge_isometric_set_projection_offset(GPoint(100, 45));
+  pge_isometric_set_projection_offset(PROJECTION_OFFSET);
   pge_set_framerate(FRAME_RATE_HIGH);
   pge_begin(GColorBlack, pge_logic, pge_render, NULL);
 

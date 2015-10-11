@@ -13,11 +13,12 @@ extern GColor g_bg_color;
 #include "drawable/segment.h"
 #include "drawable/digit.h"
 
-#define FRAME_RATE_HIGH 30
+#define FRAME_RATE_HIGH PBL_IF_ROUND_ELSE(10, 30)
 #define ANIM_TIMEOUT 10000
 
-#define HOURS_OFFSET 40
-#define MINS_OFFSET  25
+#define HOURS_OFFSET      40
+#define MINS_OFFSET       25
+#define PROJECTION_OFFSET PBL_IF_ROUND_ELSE(GPoint(120, 45), GPoint(100, 45))
 
 #define COLOR_SET_YELLOW 0
 #define COLOR_SET_RED    1
@@ -31,7 +32,7 @@ extern GColor g_bg_color;
 #define FG_COL_RED    GColorDarkCandyAppleRed
 #define BG_COL_RED    GColorOrange
 #define FG_COL_BLUE   GColorBlue
-#define BG_COL_BLUE   GColorWhite
+#define BG_COL_BLUE   GColorPictonBlue
 #define FG_COL_GREEN  GColorDarkGreen
 #define BG_COL_GREEN  GColorGreen
 #define FG_COL_GRAY   GColorDarkGray
