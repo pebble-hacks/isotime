@@ -14,6 +14,7 @@ extern GColor g_bg_color;
 #include "drawable/digit.h"
 
 #define FRAME_RATE_HIGH 30
+#define ANIM_TIMEOUT 10000
 
 #define HOURS_OFFSET 40
 #define MINS_OFFSET  25
