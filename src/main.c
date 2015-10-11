@@ -11,12 +11,6 @@ static void pge_logic() {
   }
 }
 
-#ifdef DRAW_BG
-static void set_framebuffer_pixel(uint8_t* fb_addr, GSize fb_size, GPoint pixel, GColor color) {
-  memset(&fb_addr[(pixel.y * fb_size.w) + pixel.x], (uint8_t)color.argb, 1);
-}
-#endif
-
 static void pge_render(GContext *ctx) {
 #ifdef BENCHMARK
   uint16_t start = time_ms(NULL, NULL);

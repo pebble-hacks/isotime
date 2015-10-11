@@ -27,13 +27,13 @@ extern GColor g_bg_color;
 #define COLOR_SET_GRAY   4
 #define NUM_COLOR_SETS   5
 
-#define FG_COL_YELLOW GColorOrange
-#define BG_COL_YELLOW GColorYellow
-#define FG_COL_RED    GColorDarkCandyAppleRed
-#define BG_COL_RED    GColorOrange
-#define FG_COL_BLUE   GColorBlue
-#define BG_COL_BLUE   GColorPictonBlue
-#define FG_COL_GREEN  GColorDarkGreen
-#define BG_COL_GREEN  GColorGreen
-#define FG_COL_GRAY   GColorDarkGray
-#define BG_COL_GRAY   GColorLightGray
+#define FG_COL_YELLOW PBL_IF_COLOR_ELSE(GColorOrange, GColorBlack)
+#define BG_COL_YELLOW PBL_IF_COLOR_ELSE(GColorYellow, GColorWhite)
+#define FG_COL_RED    PBL_IF_COLOR_ELSE(GColorDarkCandyAppleRed, GColorBlack)
+#define BG_COL_RED    PBL_IF_COLOR_ELSE(GColorOrange, GColorWhite)
+#define FG_COL_BLUE   PBL_IF_COLOR_ELSE(GColorBlue, GColorBlack)
+#define BG_COL_BLUE   PBL_IF_COLOR_ELSE(GColorPictonBlue, GColorWhite)
+#define FG_COL_GREEN  PBL_IF_COLOR_ELSE(GColorDarkGreen, GColorBlack)
+#define BG_COL_GREEN  PBL_IF_COLOR_ELSE(GColorGreen, GColorWhite)
+#define FG_COL_GRAY   PBL_IF_COLOR_ELSE(GColorDarkGray, GColorBlack)
+#define BG_COL_GRAY   PBL_IF_COLOR_ELSE(GColorLightGray, GColorWhite)
