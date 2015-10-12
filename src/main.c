@@ -4,6 +4,7 @@ static Digit *s_digits[4];
 
 static GColor s_bg_color, s_fg_color;
 static int s_color_set;
+static bool s_initd;
 
 static bool digits_are_animating() {
   for(int i = 0; i < 4; i++) {
@@ -33,9 +34,11 @@ static void pge_render(GContext *ctx) {
 
   if(!digits_are_animating()) {
     pge_pause();
-    printf("AT REST");
+    if(!s_initd) {
+      // Any further interruptions will cause fast-forwarding
+      s_initd = true;
+    }
   }
-  printf("RENDER");
 
 #ifdef BENCHMARK
   uint16_t finish = time_ms(NULL, NULL);
@@ -96,10 +99,27 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
 
   // Smooth transition
   pge_resume();
-  pge_set_framerate(FRAME_RATE_HIGH);
+}
+
+static void fix_handler(void *context) {
+  // Render new state
+  pge_manual_advance();
+}
+
+static void focus_handler(bool now_in_focus) {
+  if(now_in_focus && s_initd) {
+    // Prevent bad rendering after notifications
+    while(digits_are_animating()) {
+      pge_logic();
+    }
+
+    app_timer_register(500, fix_handler, NULL);
+  }
 }
 
 void pge_init() {
+  s_initd = false;
+
   s_digits[0] = digit_create(GPoint(-HOURS_OFFSET, 0), 0);
   s_digits[1] = digit_create(GPoint(-HOURS_OFFSET + (5 * SEGMENT_SIZE.w), 0), 0);
   s_digits[2] = digit_create(GPoint(MINS_OFFSET, 7 * SEGMENT_SIZE.h), 0);
@@ -114,6 +134,8 @@ void pge_init() {
   time_t temp = time(NULL); 
   struct tm *t = localtime(&temp);
   tick_handler(t, MINUTE_UNIT);
+
+  app_focus_service_subscribe(focus_handler);
 }
 
 void pge_deinit() {
