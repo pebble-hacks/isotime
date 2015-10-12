@@ -54,3 +54,8 @@ void segment_set_colors(Segment *this, GColor side_color, GColor face_color) {
   this->side_color = side_color;
   this->face_color = face_color;
 }
+
+bool segment_is_at_rest(Segment *this) {
+  return (this->visible && this->origin.z == 0) // Supposed to be visible, and is
+      || (!this->visible && abs(this->origin.z) >= SEGMENT_Z_MAX);  // Supposed to be invisible and is high up or down low
+}

@@ -19,3 +19,5 @@ void digit_logic(Digit *this);
 void digit_render(Digit *this);
 
 void digit_set_colors(Digit *this, GColor side_color, GColor face_color);
+
+bool digit_is_animating(Digit *this);

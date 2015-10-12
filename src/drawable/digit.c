@@ -153,3 +153,12 @@ void digit_set_colors(Digit *this, GColor side_color, GColor face_color) {
     segment_set_colors(this->segments[i], side_color, face_color);
   }
 }
+
+bool digit_is_animating(Digit *this) {
+  for(int i = 0; i < 15; i++) {
+    if(!segment_is_at_rest(this->segments[i])) {
+      return true;
+    }
+  }
+  return false;
+}

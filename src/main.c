@@ -5,6 +5,15 @@ static Digit *s_digits[4];
 static GColor s_bg_color, s_fg_color;
 static int s_color_set;
 
+static bool digits_are_animating() {
+  for(int i = 0; i < 4; i++) {
+    if(digit_is_animating(s_digits[i])) {
+      return true;
+    }
+  }
+  return false;
+}
+
 static void pge_logic() {
   for(int i = 0; i < 4; i++) {
     digit_logic(s_digits[i]);
@@ -16,34 +25,22 @@ static void pge_render(GContext *ctx) {
   uint16_t start = time_ms(NULL, NULL);
 #endif
 
-#ifndef DRAW_BG
   pge_isometric_begin(ctx);
-#else
-  GBitmap *bg_fb = pge_isometric_begin(ctx);
-  uint8_t *bg_fb_data = gbitmap_get_data(bg_fb);
-  GSize bg_fb_size = gbitmap_get_bounds(bg_fb).size;
-  for(int y = 0; y < 168; y++) {
-    for(int x = 0; x < 144; x++) {
-      memset(&bg_fb_data[(y * bg_fb_size.w) + x], (uint8_t)s_bg_color.argb, 1);
-    }
-  }
-#endif
-
   for(int i = 0; i < 4; i++) {
     digit_render(s_digits[i]);
   }
-
   pge_isometric_finish(ctx);
+
+  if(!digits_are_animating()) {
+    pge_pause();
+    printf("AT REST");
+  }
+  printf("RENDER");
 
 #ifdef BENCHMARK
   uint16_t finish = time_ms(NULL, NULL);
   APP_LOG(APP_LOG_LEVEL_INFO, "Frame time: %d", (int)finish - start);
 #endif
-}
-
-static void battery_saver(void *context) {
-  // Don't render for the rest of the minute
-  pge_pause();
 }
 
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
@@ -100,7 +97,6 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
   // Smooth transition
   pge_resume();
   pge_set_framerate(FRAME_RATE_HIGH);
-  app_timer_register(ANIM_TIMEOUT, battery_saver, NULL);
 }
 
 void pge_init() {

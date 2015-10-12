@@ -29,3 +29,5 @@ void segment_render(Segment *this);
 void segment_set_visible(Segment *this, bool visible, int index);
 
 void segment_set_colors(Segment *this, GColor side_color, GColor face_color);
+
+bool segment_is_at_rest(Segment *this);
