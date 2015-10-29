@@ -10,13 +10,7 @@
 
 // Provide GBitmapDataRowInfo API on 2.x
 #if defined(PBL_SDK_2)
-typedef struct {
-  int min_x;
-  int max_x;
-  uint8_t *data;
-} GBitmapDataRowInfo;
-
-static GBitmapDataRowInfo gbitmap_get_data_row_info(GBitmap *bitmap, int y) {
+GBitmapDataRowInfo gbitmap_get_data_row_info(GBitmap *bitmap, int y) {
   uint8_t *ptr = gbitmap_get_data(bitmap);
   int rsb = gbitmap_get_bytes_per_row(bitmap);
   ptr = &ptr[y * rsb];
@@ -38,11 +32,8 @@ static void byte_set_bit(uint8_t *byte, uint8_t bit, uint8_t value) {
 
 /************************************ API *************************************/
 
-GColor universal_fb_get_pixel_color(GBitmap *fb, GPoint point) {
-  GRect bounds = gbitmap_get_bounds(fb);
-  GBitmapDataRowInfo info = gbitmap_get_data_row_info(fb, point.y);
-  if(point.x > info.min_x && point.x < info.max_x
-  && point.y > bounds.origin.y && point.y < bounds.origin.y + bounds.size.h) {
+GColor universal_fb_get_pixel_color(GBitmapDataRowInfo info, GPoint point) {
+  if(point.x > info.min_x && point.x < info.max_x) {
 #if defined(PBL_COLOR)
     return (GColor){ .argb = info.data[point.x] };
 #elif defined(PBL_BW)
@@ -56,11 +47,8 @@ GColor universal_fb_get_pixel_color(GBitmap *fb, GPoint point) {
   }
 }
 
-void universal_fb_set_pixel_color(GBitmap *fb, GPoint point, GColor color) {
-  GRect bounds = gbitmap_get_bounds(fb);
-  GBitmapDataRowInfo info = gbitmap_get_data_row_info(fb, point.y);
-  if(point.x > info.min_x && point.x < info.max_x
-  && point.y > bounds.origin.y && point.y < bounds.origin.y + bounds.size.h) {
+void universal_fb_set_pixel_color(GBitmapDataRowInfo info, GPoint point, GColor color) {
+  if(point.x > info.min_x && point.x < info.max_x) {
 #if defined(PBL_COLOR)
     memset(&info.data[point.x], color.argb, 1);
 #elif defined(PBL_BW)
@@ -78,12 +66,12 @@ void universal_fb_swap_colors(GBitmap *fb, GRect bounds, GColor c1, GColor c2) {
   for(int y = bounds.origin.y; y < bounds.origin.y + bounds.size.h; y++) {
     GBitmapDataRowInfo info = gbitmap_get_data_row_info(fb, y);
     for(int x = bounds.origin.x; x < bounds.origin.x + bounds.size.w; x++) {
-      if(gcolor_equal(universal_fb_get_pixel_color(fb, GPoint(x, y)), c1)) {
+      if(gcolor_equal(universal_fb_get_pixel_color(info, GPoint(x, y)), c1)) {
         // Replace c1 with c2
-        universal_fb_set_pixel_color(fb, GPoint(x, y), c2);
-      } else if(gcolor_equal(universal_fb_get_pixel_color(fb, GPoint(x, y)), c2)) {
+        universal_fb_set_pixel_color(info, GPoint(x, y), c2);
+      } else if(gcolor_equal(universal_fb_get_pixel_color(info, GPoint(x, y)), c2)) {
         // Vice versa
-        universal_fb_set_pixel_color(fb, GPoint(x, y), c1);
+        universal_fb_set_pixel_color(info, GPoint(x, y), c1);
       }
     }
   }
