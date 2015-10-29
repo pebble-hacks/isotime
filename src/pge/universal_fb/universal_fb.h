@@ -21,12 +21,12 @@ GBitmapDataRowInfo gbitmap_get_data_row_info(GBitmap *bitmap, int y);
  * Get the GColor of a given point
  * Returns GColorClear if out of bounds
  */
-GColor universal_fb_get_pixel_color(GBitmapDataRowInfo info, GPoint point);
+GColor universal_fb_get_pixel_color(GBitmapDataRowInfo info, GRect bounds, GPoint point);
 
 /**
  * Set a pixel's GColor
  */
-void universal_fb_set_pixel_color(GBitmapDataRowInfo info, GPoint point, GColor color);
+void universal_fb_set_pixel_color(GBitmapDataRowInfo info, GRect bounds, GPoint point, GColor color);
 
 /**
  * Swap two colors between each other.

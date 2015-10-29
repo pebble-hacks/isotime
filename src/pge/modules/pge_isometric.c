@@ -9,7 +9,7 @@ static GBitmapDataRowInfo s_info;
 static uint8_t *s_fb_data = NULL;
 
 static void set_pixel(GPoint pixel, GColor color) {
-  universal_fb_set_pixel_color(s_info, pixel, color);
+  universal_fb_set_pixel_color(s_info, gbitmap_get_bounds(s_fb), pixel, color);
 }
 
 /**
