@@ -131,7 +131,7 @@ void pge_init() {
 
   tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
 
-  time_t temp = time(NULL); 
+  time_t temp = time(NULL);
   struct tm *t = localtime(&temp);
   tick_handler(t, MINUTE_UNIT);
 
