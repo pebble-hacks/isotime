@@ -56,7 +56,7 @@ void universal_fb_set_pixel_color(GBitmapDataRowInfo info, GRect bounds, GPoint 
 #elif defined(PBL_BW)
     uint8_t byte = point.x / 8;
     uint8_t bit = point.x % 8; // fb: bwbb bbbb -> byte: 0000 0010
-    byte_set_bit(&info.data[byte], bit, color);
+    byte_set_bit(&info.data[byte], bit, color.argb);
 #endif
   } else {
     // Out of bounds
